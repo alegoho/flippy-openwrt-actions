@@ -4,7 +4,7 @@
 # Copyright (C) 2021 https://github.com/ophub/flippy-openwrt-actions
 #==========================================================================
 
-name: Packaging OpenWrt
+name: Packaging fichenx OpenWrt
 
 on:
   repository_dispatch:
@@ -24,7 +24,6 @@ on:
           - e25
           - e52c
           - fine3399
-          - tn3399
           - ht2
           - e20c
           - h28k
@@ -62,7 +61,7 @@ on:
       openwrt_kernel:
         description: "Select kernel version"
         required: false
-        default: "6.1.y_6.6.y"
+        default: "6.6.y"
         type: choice
         options:
           - 5.4.y
@@ -79,7 +78,7 @@ on:
         type: choice
         options:
           - ophub/kernel
-          - breakingbadboy/OpenWrt
+          - breakings/OpenWrt
           - QXY716/kernel
       auto_kernel:
         description: "Auto use the latest kernel"
@@ -165,13 +164,13 @@ jobs:
         working-directory: /builder
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         run: |
-          releases_tag_keywords="OpenWrt_Flippy"
+          releases_tag_keywords="OpenWrt_Fichenx"
 
           armvirt_tarfile_path="openwrt/bin/targets/armvirt/64"
           [[ -d "${armvirt_tarfile_path}" ]] || mkdir -p ${armvirt_tarfile_path}
           ln -sf /builder/openwrt ${GITHUB_WORKSPACE}/openwrt
 
-          latest_url="https://github.com/Zane-E/OP-ARM/releases/download/Tvi3315a-Breakings/openwrt-armvirt-64-generic-rootfs.tar.gz"
+          latest_url="https://github.com/fichenx/Actions-OpenWrt/releases/download/openwrt_armvirt/openwrt-armvirt-64-generic-rootfs.tar.gz"
 
           openwrt_filename="${latest_url##*/}"
           curl -fsSL "${latest_url}" -o "${armvirt_tarfile_path}/${openwrt_filename}"
